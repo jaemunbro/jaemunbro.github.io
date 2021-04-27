@@ -1,11 +1,11 @@
  ---
-  1 title: 블로그 이사
-  2 author: Jaemun JUng
-  3 date: 2021-04-28 01:25:00 +0900
-  4 categories: [etc]
-  5 tags: []
-  6 math: true
-  7 mermaid: true
+title: 블로그 이사
+author: Jaemun Jung
+date: 2021-04-28 01:25:00 +0900
+categories: [etc]
+tags: []
+math: true
+mermaid: true
  ---
  Medium에서 github로 블로그를 이사했다.
  
