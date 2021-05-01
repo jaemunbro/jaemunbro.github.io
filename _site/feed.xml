@@ -4,7 +4,7 @@
   <id>https://jaemunbro.github.io/jaemunbro.github.io/</id>
   <title>Jaemun Jung</title>
   <subtitle>description.. nothing yet.</subtitle>
-  <updated>2021-05-02T00:45:31+09:00</updated>
+  <updated>2021-05-02T01:00:47+09:00</updated>
   <author>
     <name>Jaemun Jung</name>
     <uri>https://jaemunbro.github.io/jaemunbro.github.io/</uri>
@@ -24,7 +24,7 @@
     <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" rel="alternate" type="text/html" title="Apache Spark Core General Optimization(스파크 최적화 기본)" />
     <published>2021-05-01T01:43:00+09:00</published>
   
-    <updated>2021-05-01T01:43:00+09:00</updated>
+    <updated>2021-05-02T00:47:02+09:00</updated>
   
     <id>https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/</id>
     <content src="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" />
@@ -66,7 +66,7 @@ https://databricks.com/blog/2015/05/28/tuning-java-garbage...
     <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/" rel="alternate" type="text/html" title="Apache Spark skew optimization(불균형 데이터 최적화)" />
     <published>2021-05-01T01:43:00+09:00</published>
   
-    <updated>2021-05-01T01:43:00+09:00</updated>
+    <updated>2021-05-02T00:47:02+09:00</updated>
   
     <id>https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/</id>
     <content src="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/" />
@@ -107,7 +107,7 @@ https://itnext.io/handling-data-skew-in-apache-spark-9f56343e58e8?gi=bbd8d937c1e
     <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" rel="alternate" type="text/html" title="Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)" />
     <published>2021-04-30T01:43:00+09:00</published>
   
-    <updated>2021-04-30T01:43:00+09:00</updated>
+    <updated>2021-05-02T00:47:02+09:00</updated>
   
     <id>https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/</id>
     <content src="https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" />
