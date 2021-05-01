@@ -1,0 +1,64 @@
+[
+  
+  {
+    "title": "Spark Basic Optimization",
+    "url": "/jaemunbro.github.io/posts/spark-basic-optimization/",
+    "categories": "",
+    "tags": "",
+    "date": "2021-05-01 00:00:00 +0900",
+    
+
+
+
+
+
+    "snippet": "d"
+  },
+  
+  {
+    "title": "Apache Spark 트러블슈팅 가이드",
+    "url": "/jaemunbro.github.io/posts/troubleshooting-spark/",
+    "categories": "Apache Spark",
+    "tags": "Spark, Troubleshooting",
+    "date": "2021-04-30 01:43:00 +0900",
+    
+
+
+
+
+
+    "snippet": "스파크의 문제 사례들과 그 해결 방법들에 대해 알아보자.문제 케이스들은 일부 직접 겪은 것들과 본문 하단 링크의 케이스들을 취합하였다.Troubleshooting Tips트러블슈팅을 위해 verbose mode를 활용하자spark-submit --driver-memory 10g --verbose --master yarn --executor memory...다음 정보들이 프린트된다.  all default properties  command line options  setting from spark ‘conf’ file  set..."
+  },
+  
+  {
+    "title": "Spark Skew Optimization",
+    "url": "/jaemunbro.github.io/posts/spark-skew-optimization/",
+    "categories": "",
+    "tags": "",
+    "date": "2021-04-30 00:00:00 +0900",
+    
+
+
+
+
+
+    "snippet": "Referencehttps://databricks.com/session_eu19/apache-spark-core-practical-optimizationhttps://medium.com/road-to-data-engineering/spark-performance-optimization-series-1-skew-2762a0f288chttps://docs.databricks.com/delta/join-performance/skew-join.htmlhttps://docs.databricks.com/spark/latest/spark-..."
+  },
+  
+  {
+    "title": "블로그 이사",
+    "url": "/jaemunbro.github.io/posts/blog-migration/",
+    "categories": "ETC, Thoughts",
+    "tags": "",
+    "date": "2021-04-28 01:25:00 +0900",
+    
+
+
+
+
+
+    "snippet": "Medium에서 github로 블로그를 이사했다.Medium 플랫폼은 유료 구독자만 볼 수 있는 블로그 글이 많아지면서 유저 경험이 점점 나빠지고 있는 것 같다.처음에는 Netflix 등의 기업 테크 블로그 때문에 Medium 플랫폼에 들어가게 되었고 이런 경험들을 통해서 ‘호감’ 플랫폼으로 자리잡게 되었었는데, 점차 몇몇 기업의 테크 블로그를 제외한 일반 블로그들은 유료 자료라 하더라도 clickbait 같은 느낌의, 흥미로운 제목에 비해 읽을 내용은 거의 없는 유료 자료가 많아지는 느낌이다. 특히 구글을 검색해서 미디움 페..."
+  }
+  
+]
+
