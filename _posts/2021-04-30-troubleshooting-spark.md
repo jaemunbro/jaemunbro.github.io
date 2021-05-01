@@ -1,10 +1,8 @@
 ---
-title: Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)
+title: Apache Spark - Troubleshooting Cheatsheet (스파크 트러블슈팅 가이드)
 author: Jaemun Jung
 date: 2021-04-30 01:43:00 +0900
 categories: [Apache Spark]
-categories: [ETC, Thoughts]
-tags: []
 tags: [Spark, Troubleshooting]
 ---
 
@@ -272,5 +270,4 @@ s3://awsexamplebucket/documents
 [https://medium.com/ibm-data-ai/beginners-troubleshooting-guide-for-spark-ibm-analytics-engine-199019cfc6b4](https://medium.com/ibm-data-ai/beginners-troubleshooting-guide-for-spark-ibm-analytics-engine-199019cfc6b4)  
 [https://www.slideshare.net/jcmia1/a-beginners-guide-on-troubleshooting-spark-applications](https://www.slideshare.net/jcmia1/a-beginners-guide-on-troubleshooting-spark-applications)
 [https://aws.amazon.com/ko/premiumsupport/knowledge-center/emr-s3-503-slow-down/](https://aws.amazon.com/ko/premiumsupport/knowledge-center/emr-s3-503-slow-down/)
-
 

@@ -26,7 +26,7 @@
 
   <!-- Begin Jekyll SEO tag v2.7.1 -->
 <meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Apache Spark Core General Optimization(스파크 최적화 기본)" />
+<meta property="og:title" content="Apache Spark - Core Optimization(스파크 최적화)" />
 <meta name="author" content="Jaemun Jung" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자. 본문 작성에 주되게 참조한 소스는 Spark + AI Summit Europe 2019에서 발표한 Databricks의 Daniel Tomes의 세션인 Apache Spark Core – Practical Optimization이다." />
@@ -37,14 +37,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-05-01T01:43:00+09:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Apache Spark Core General Optimization(스파크 최적화 기본)" />
+<meta property="twitter:title" content="Apache Spark - Core Optimization(스파크 최적화)" />
 <meta name="google-site-verification" content="google_meta_tag_verification" />
 <script type="application/ld+json">
-{"datePublished":"2021-05-01T01:43:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/"},"url":"https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/","author":{"@type":"Person","name":"Jaemun Jung"},"@type":"BlogPosting","description":"스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자. 본문 작성에 주되게 참조한 소스는 Spark + AI Summit Europe 2019에서 발표한 Databricks의 Daniel Tomes의 세션인 Apache Spark Core – Practical Optimization이다.","headline":"Apache Spark Core General Optimization(스파크 최적화 기본)","dateModified":"2021-05-02T00:47:02+09:00","@context":"https://schema.org"}</script>
+{"datePublished":"2021-05-01T01:43:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/"},"url":"https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/","author":{"@type":"Person","name":"Jaemun Jung"},"@type":"BlogPosting","description":"스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자. 본문 작성에 주되게 참조한 소스는 Spark + AI Summit Europe 2019에서 발표한 Databricks의 Daniel Tomes의 세션인 Apache Spark Core – Practical Optimization이다.","headline":"Apache Spark - Core Optimization(스파크 최적화)","dateModified":"2021-05-02T00:47:02+09:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
-  <title>Apache Spark Core General Optimization(스파크 최적화 기본) | Jaemun Jung
+  <title>Apache Spark - Core Optimization(스파크 최적화) | Jaemun Jung
   </title>
 
   <!--
@@ -294,7 +294,7 @@
       
 
         
-          <span>Apache Spark Core General Optimization(스파크 최적화 기본)</span>
+          <span>Apache Spark - Core Optimization(스파크 최적화)</span>
 
         
 
@@ -350,6 +350,20 @@
 
 
 
+  
+
+  
+
+  <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+  
+  
+
+  
+
+  
+
+
+
 <!-- return -->
 <div class="row">
 
@@ -357,7 +371,7 @@
 
     <div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4">
 
-      <h1 data-toc-skip>Apache Spark Core General Optimization(스파크 최적화 기본)</h1>
+      <h1 data-toc-skip>Apache Spark - Core Optimization(스파크 최적화)</h1>
 
       <div class="post-meta text-muted d-flex flex-column">
         <!-- Published date and author -->
@@ -449,7 +463,7 @@
 
 
 <!-- return element -->
-<span class="readtime" data-toggle="tooltip" data-placement="bottom" title="77 words">1 min</span>
+<span class="readtime" data-toggle="tooltip" data-placement="bottom" title="2341 words">13 min</span>
 
 
           <!-- page views -->
@@ -466,17 +480,309 @@
         <p>스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자.
 본문 작성에 주되게 참조한 소스는 Spark + AI Summit Europe 2019에서 발표한 Databricks의 Daniel Tomes의 세션인 <a href="https://databricks.com/session_eu19/apache-spark-core-practical-optimization">Apache Spark Core – Practical Optimization</a>이다.</p>
 
+<h1 id="general-optimization">General Optimization</h1>
+<hr />
+<p>아래 Advanced Optimization에서 조금 깊이 파보기 전에, 기본적인 최적화 방법들에 대해서 간단히 살펴보자.</p>
+
+<h3 id="file-format-최적화">File Format 최적화</h3>
+<ul>
+  <li>Parquet, ORC와 같은 columnar file 활용</li>
+  <li>splittable file format 사용 (snappy, bzip2와 같은 compression format)</li>
+  <li>너무 많은 small file은 compaction 한다.</li>
+</ul>
+
+<h3 id="parallelism">Parallelism</h3>
+<ul>
+  <li>데이터 사이즈에 맞춘 스파크 파티션 생성. 너무 적은 파티션 수는 executor를 idle하게 만들 수 있고 반대로 너무 많은 파티션은 task scheduling 오버헤드를 지나치게 높게 만들 수 있다.</li>
+  <li>executor 최소한 2-3개 이상의 코어를 할당</li>
+  <li><code class="language-plaintext highlighter-rouge">spark.sql.shuffle.partitions</code> 기본값 200은 빅데이터 프로덕션 환경에서는 너무 작으므로 기본적으로 튜닝이 필요하다.</li>
+</ul>
+
+<h3 id="shuffle-줄이기">Shuffle 줄이기</h3>
+<p>shuffle은 네트워크와 disk I/O를 포함하는 노드간 데이터 이동을 불러일으키는 가장 비싼 연산이다. shuffle을 줄이는 것이 튜닝의 시작이다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">spark.sql.shuffle.partitions</code>을 튜닝한다.</li>
+  <li>각 task 사이즈가 너무 저지지 않도록 input data를 파티셔닝한다.</li>
+  <li>일반적으로, 파티션당 100MB에서 200MB 사이를 타게팅하도록 한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">spark.sql.shuffle.partitions</code> = (shuffle stage input size/target size)/total cores) * total cores</li>
+</ul>
+
+<h3 id="filterreduce-dataset-size">Filter/Reduce dataSet size</h3>
+<ul>
+  <li>partition된 데이터를 활용한다.</li>
+  <li>최대한 이른 stage에서 데이터를 filter out 한다.</li>
+</ul>
+
+<h3 id="적절한-cache-사용">적절한 Cache 사용</h3>
+<ul>
+  <li>pipeline에서 여러번 계산이 필요한 df에서 활용한다.</li>
+  <li>unpersist를 하자.</li>
+</ul>
+
+<h3 id="join">Join</h3>
+<ul>
+  <li>BroadcastHashJoin을 최대한 활용하자. 가장 성능이 빠른 Join이다.</li>
+</ul>
+
+<h3 id="cluster-리소스-튜닝">Cluster 리소스 튜닝</h3>
+<ul>
+  <li>spark.driver.memory, executor-memory, num-executors, and executor-cores 튜닝</li>
+</ul>
+
+<h3 id="비싼-연산은-피하자">비싼 연산은 피하자</h3>
+<ul>
+  <li>order by는 필수적인 경우만 쓴다.</li>
+  <li>모든 컬럼을 선택하기 위한 (*)는 지양하고, 필요한 컬럼을 선택해서 쓴다.</li>
+  <li>count()도 꼭 필요한 경우에만.</li>
+</ul>
+
+<h3 id="skew">Skew</h3>
+<ul>
+  <li>salting 통해 해결 (아래 Advanced Optimization 참조)</li>
+  <li>partition이 불균형한 경우, 균형잡힌 파티션을 재생성하기 위해 repartition을 하고 cache해두는 것을 고려해볼 수도 있다</li>
+  <li>SparkUI에서 partition size와 task duration을 확인하자</li>
+</ul>
+
+<h3 id="udf">UDF</h3>
+<ul>
+  <li>UDF 사용은 최대한 지양한다. (아래 Advanced Optimization 참조)</li>
+</ul>
+
+<h1 id="advanced-optimization">Advanced Optimization</h1>
+<h2 id="하드웨어-스펙에-대한-이해">하드웨어 스펙에 대한 이해</h2>
+<hr />
+<ul>
+  <li><strong>Core Count &amp; Speed</strong></li>
+  <li><strong>Memory Per Core</strong> (메모리당 코어가 얼마나 되는가)</li>
+  <li>local disk type, count, size, speed</li>
+  <li>network speed, toplology</li>
+  <li>cost / core / hour</li>
+</ul>
+
+<h2 id="get-a-baseline">Get A Baseline</h2>
+<hr />
+<ul>
+  <li>Is your action efficient?
+    <ul>
+      <li>Long Stages, Spills, Laggard Tasks<br />
+  duration으로 sorting해서 가장 오래 돌고 있는 Stage를 파악하는 것부터 시작할 수 있다.<br />
+  disk spill이 심하게 일어나고 있는 Stage인 경우를 찾는다. 보통 가장 오래 도는 Job과 동일한 경우가 많다.</li>
+    </ul>
+  </li>
+  <li>CPU Utilization
+    <ul>
+      <li>Ganglia / Yarn<br />
+  CPU 활용률이 너무 낮다면, CPU 활용률이 70% 내외로 활용될 수 있도록 타겟으로 잡아볼 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="데이터-스캔-최소화---minimize-data-scans">데이터 스캔 최소화 - Minimize Data Scans</h2>
+<hr />
+<ul>
+  <li>가장 간단하지만 가장 중요한 최적화 기법<br />
+<strong>Lazy loading</strong> - 데이터를 파티셔닝을 최대한 필터하고 로딩해서 사용한다.</li>
+  <li>Hive Partition<br />
+<strong>Partition pruning</strong>을 통한 스캔 대상 데이터 최소화</li>
+  <li>Bucketing (Only for experts - 제대로 유지하는 것이 거의 불가능에 가까움..)</li>
+</ul>
+
+<h2 id="spark-partitions---inputshuffleoutput">Spark Partitions - Input/Shuffle/Output</h2>
+<hr />
+<p>스파크 파티션을 컨트롤하는 두가지 핵심은</p>
+<ol>
+  <li><strong>Spill을 피하도록 한다</strong></li>
+  <li><strong>최대한의 Core를 활용할 수 있도록 한다</strong>
+이다. 데이터의 Input 단계부터 Shuffle 단계, Output 단계로 나눠서 알아보자.
+    <h4 id="1-input">(1) Input</h4>
+    <ul>
+      <li>Size를 컨트롤한다.<br />
+ <code class="language-plaintext highlighter-rouge">spark.sql.file.maxPartitionBytes</code> default value : 128MB
+        <ul>
+          <li>Increase Parallelism: 코어의 활용률을 병렬도를 더 올리기 위해 쪼개서 읽을 수 있다. 
+  예시)
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://user-images.githubusercontent.com/29077671/116790207-11a69400-aaee-11eb-8b26-79e65539e52c.png" alt="image" />
+  shuffle이 없는 map job이므로 오직 read/write 속도에만 dependant한 task인데, 더 빠르게 처리하기 위해 maxPartitionSize를 core 수에 맞게 튜닝했고 그것만으로 시간을 50% 줄일 수 있었다. 더 많은 코어가 나누어서 처리했기 때문이다.</li>
+          <li>Heavily Nested/Repetitive Data: 메모리에서 풀어냈을때 데이터가 커질 수 있으므로 더 작게 읽는 것이 필요할 수도 있다.</li>
+          <li>Generating Data - Explode: 이 역시 새로운 데이터 컬럼을 만들면서 데이터가 메모리 상에서 커질 수 있으므로.</li>
+          <li>Source Structure is not optimal(upstream)</li>
+          <li>UDFs</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="2-shuffle">(2) Shuffle</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre>- Count를 컨트롤한다.
+- `spark.sql.shuffle.partitions` default value : 200
+- 가장 큰 셔플 스테이지의 타겟 사이즈를 파티션당 200MB 이하로 잡는 것이 적절하다.   
+(target size &lt;= 200 MB/partition)    
+    - 예시를 들어보자.
+    Shuffle Stage Input = 210GB  
+    210000MB / 200MB = 1050
+    -&gt; `spark.conf.set("spark.sql.shuffle.partitions", 1050)`  
+    하지만 만약 클러스터의 가용 코어가 2000 이라면 다 활용하면 더 좋다.  
+    -&gt; `spark.conf.set("spark.sql.shuffle.partitions", 2000)`    
+
+    - 또 다른 예시 - spark history server의 stage 모니터링
+    ![image](https://user-images.githubusercontent.com/29077671/116789923-7c56d000-aaec-11eb-9fc7-0e7b1fcbe557.png)
+    위 예시의 우측 Summary Metrics를 보면 Median 값이 270MB이다. 아주 나쁘진 않지만 그래도 파티션이 부족하다고 봐야한다.
+    위의 예시에서 stage 19와 stage 20이 stage 21의 셔플의 소스이므로, 19와 20의 shuffle write이 21의 shuffle input이 라고 볼 수 있다.
+    간단하게 이야기해서, shuffle spill(memory/disk)가 일어나고 있다면 파티션이 더 필요하다고 이해해도 좋다.
+    - partition count = stage input data / target size
+</pre></td></tr></tbody></table></code></div></div>
+
+<h4 id="3-output">(3) Output</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>- Count를 컨트롤한다.
+- coalesce(n) : 2000개의 partition이 shuffle하고 나서, write할 때 100개가 나눠서 할 수 있도록.
+- Repartition(n) : partition을 증가시킬 때 사용. shuffle을 발생시키므로 꼭 필요한 경우가 아니면 사용하지 말자.
+- df.write.option("maxRecordsPerFile", N) : 추천하는 방법은 아님.
+![image](https://user-images.githubusercontent.com/29077671/116790347-998c9e00-aaee-11eb-85be-baf026979fc3.png)
+전체 160GB의 파일을 처리하는데 10개의 코어가 1.6GB씩 처리할 때와 100개의 코어가 처리할 때의 차이는 아주 크다.
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="skew-join-optimization">Skew Join Optimization</h2>
+<hr />
+<p>어떤 파티션이 다른 파티션보다 훨씬 큰 경우.
+예시) 어떤 키 하나에는 수백만개의 count가 몰려 있고, 나머지 키에는 수십개 정도씩만 있다고 가정하자.
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://user-images.githubusercontent.com/29077671/116791009-85e33680-aaf2-11eb-9ba1-a4cd5196d7b2.png" alt="image" />
+<strong>Salting</strong>이라 불리는 방법을 통해 해결해볼 수 있다. 노이즈 데이터를 뿌려넣는다는 의미이다.</p>
+<ul>
+  <li>0부터 spark.sql.suffle.partitoins - 1 사이의 random int값을 가진 column을 양쪽 데이터프레임에 생성한다.</li>
+  <li>Join 조건에 새로운 salting column을 포함한다.</li>
+  <li>result 표출 시 salting column을 drop한다.
+    <div class="language-scala highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nv">df</span><span class="o">.</span><span class="py">groupBy</span><span class="o">(</span><span class="s">"city"</span><span class="o">,</span> <span class="s">"state"</span><span class="o">).</span><span class="py">agg</span><span class="o">(&lt;</span><span class="nf">f</span><span class="o">(</span><span class="n">x</span><span class="o">)&gt;).</span><span class="py">orderBy</span><span class="o">(</span><span class="nv">co</span><span class="o">.</span><span class="py">desc</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">saltVal</span> <span class="k">=</span> <span class="nf">random</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="nv">spark</span><span class="o">.</span><span class="py">conf</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="n">org</span><span class="o">...</span><span class="py">shuffle</span><span class="o">.</span><span class="py">partitions</span><span class="o">)</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span>
+<span class="nv">df</span><span class="o">.</span><span class="py">withColumn</span><span class="o">(</span><span class="s">"salt"</span><span class="o">,</span> <span class="nf">lit</span><span class="o">(</span><span class="n">saltVal</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">groupBy</span><span class="o">(</span><span class="s">"city"</span><span class="o">,</span> <span class="s">"state"</span><span class="o">,</span> <span class="s">"salt"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">agg</span><span class="o">(&lt;</span><span class="nf">f</span><span class="o">(</span><span class="n">x</span><span class="o">)&gt;)</span>
+  <span class="o">.</span><span class="py">drop</span><span class="o">(</span><span class="s">"salt"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">orderBy</span><span class="o">(</span><span class="nv">col</span><span class="o">.</span><span class="py">desc</span><span class="o">)</span>
+</pre></td></tr></tbody></table></code></div>    </div>
+  </li>
+</ul>
+
+<h2 id="minimize-data-scans-persistence">Minimize Data Scans (Persistence)</h2>
+<hr />
+<ul>
+  <li>Persistence는 무료가 아니다.</li>
+  <li>반복작업이 있는 경우에 사용한다.</li>
+  <li>기본 <code class="language-plaintext highlighter-rouge">df.cache == df.persist(StorageLevel.MEMORY_AND_DISK)</code></li>
+  <li>다른 타입들의 장단점에 대해서도 알아보자.
+    <ul>
+      <li>Default StorageLevel.MEMORY_AND_DISK<br />
+  (deserialized)</li>
+      <li>deserialized = Faster = Bigger</li>
+      <li>serialized = Slower = Smaller</li>
+    </ul>
+  </li>
+  <li><strong>df.unpersist 를 잊지말자!!</strong><br />
+cache memory를 사용하는 만큼 working memory가 줄어들 것이므로.</li>
+</ul>
+
+<h2 id="join-optimization">Join Optimization</h2>
+<hr />
+<ul>
+  <li>SortMerge Join : 양쪽 데이터가 다 클 때</li>
+  <li>Broadcast Join : 한쪽 데이터가 작을때
+    <ul>
+      <li>옵티마이저에 의해 자동으로 활성화됨 (one side &lt; spark.sql.autoBroadcastJoinThreshold) 기본값은 10M.</li>
+      <li>Risk
+        <ul>
+          <li>Not Enough Driver Memory</li>
+          <li>DF &gt; spark.driver.maxResultSize</li>
+          <li>DF &gt; single executor available working memory</li>
+        </ul>
+      </li>
+      <li><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://user-images.githubusercontent.com/29077671/116790846-8a5b1f80-aaf1-11eb-9ccf-f82a30430e94.png" alt="image" />
+        <ul>
+          <li>broadcast join을 조심해야하는 이유 : driver에서 hashmap format datafame으로 바꿔서 각 executor로 보낸다. hashmap을 만들면서 기존에 compression이 되어 있던 것도 풀리므로 데이터 사이즈도 처음 partition 안에 있을 때보다 몇배 커진 상태가 될 수 있다. (e.g., 126MB -&gt; 270MB)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="broadcastnestedloopjoin-bnlj">BroadcastNestedLoopJoin (BNLJ)</h2>
+<hr />
+<p>SparkSQL에서는 NOT IN 조건 대신 NOT EXISTS를 사용하라. 훨씬 효율적이다.
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://user-images.githubusercontent.com/29077671/116791238-db6c1300-aaf3-11eb-854b-fe73059567b4.png" alt="image" /></p>
+
+<h2 id="비싼-오퍼레이션을-제외시키자---omit-expensive-ops">비싼 오퍼레이션을 제외시키자 - Omit Expensive Ops</h2>
+<hr />
+<p>튜닝의 시작을 IntelliJ에서 아래 키워드들을 찾는 것부터 해볼 수도 있다.</p>
+<ul>
+  <li>Repartition<br />
+coalesce를 쓰거나 shuffle partition count 세팅을 바꿔서 써라.</li>
+  <li>count()<br />
+진짜 필요한 경우에만 써라.<br />
+습관적으로 많이 쓰긴 하지만, 프로덕션 배포 전에 제외시키는 걸 잊지 말자!</li>
+  <li>distinctCount
+-&gt; 꼭 정확한 숫자가 필요한 것이 아니라면 가능하면 approxCountDistinct()를 써라. 2% 내외의 오차가 발생한다.</li>
+  <li>distinct
+    <ul>
+      <li>distinct 대신 dropDuplicates을 써라.</li>
+      <li>dropDuplicates를 JOIN 전에 써라.</li>
+      <li>dropDuplicates를 groupBy 전에 써라.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="udf-penalties">UDF penalties</h3>
+<ul>
+  <li>UDF 사용은 최대한 피하는게 좋다.</li>
+  <li>일반적으로 scala udf가 python udf보다 빠르다. r udf는 가~끔 작동한다.</li>
+  <li>org.apache.spark.sql.functions를 최대한 활용하자.</li>
+  <li>UDF 만들기 전에 PandasUDF(vectorized UDFs)에 원하는 기능이 없는지 알아보자.</li>
+</ul>
+
+<h3 id="advanced-parallelism">Advanced Parallelism</h3>
+<ul>
+  <li>Driver Parallelism<br />
+델타 처리를 위한 예시
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://user-images.githubusercontent.com/29077671/116791534-0f483800-aaf6-11eb-9cd8-fd0d86925c62.png" alt="image" /></li>
+  <li>Horizontal Parallelsim</li>
+  <li>Executor Parallelism</li>
+</ul>
+
+<h4 id="더-알아보기-좋은-글">더 알아보기 좋은 글</h4>
+<p>GC https://databricks.com/blog/2015/05/28/tuning-java-garbage-collection-for-spark-applications.html</p>
+
 <h2 id="reference">Reference</h2>
-<p>https://databricks.com/session_eu19/apache-spark-core-practical-optimization
-https://www.qubole.com/blog/an-introduction-to-apache-spark-optimization-in-qubole/</p>
+<p><a href="https://databricks.com/session_eu19/apache-spark-core-practical-optimization">https://databricks.com/session_eu19/apache-spark-core-practical-optimization</a>
+<a href="https://developer.ibm.com/technologies/artificial-intelligence/blogs/spark-performance-optimization-guidelines/">https://developer.ibm.com/technologies/artificial-intelligence/blogs/spark-performance-optimization-guidelines/</a></p>
 
-<p>GC
-https://databricks.com/blog/2015/05/28/tuning-java-garbage-collection-for-spark-applications.html
-https://www.slideshare.net/SandyRyza/spark-job-failures-talk?next_slideshow=1
-p.24 architecture</p>
-
-<h1 id="another">another</h1>
-<p>https://databricks.com/blog/2015/05/28/tuning-java-garbage-collection-for-spark-applications.html</p>
 
 
       </div>
@@ -528,19 +834,19 @@ p.24 architecture</p>
 
     
       
-        <a href="https://twitter.com/intent/tweet?text=Apache Spark Core General Optimization(스파크 최적화 기본) - Jaemun Jung&url=https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" data-toggle="tooltip" data-placement="top"
+        <a href="https://twitter.com/intent/tweet?text=Apache Spark - Core Optimization(스파크 최적화) - Jaemun Jung&url=https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" data-toggle="tooltip" data-placement="top"
           title="Twitter" target="_blank" rel="noopener" aria-label="Twitter">
           <i class="fa-fw fab fa-twitter"></i>
         </a>
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?title=Apache Spark Core General Optimization(스파크 최적화 기본) - Jaemun Jung&u=https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" data-toggle="tooltip" data-placement="top"
+        <a href="https://www.facebook.com/sharer/sharer.php?title=Apache Spark - Core Optimization(스파크 최적화) - Jaemun Jung&u=https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" data-toggle="tooltip" data-placement="top"
           title="Facebook" target="_blank" rel="noopener" aria-label="Facebook">
           <i class="fa-fw fab fa-facebook-square"></i>
         </a>
     
       
-        <a href="https://telegram.me/share?text=Apache Spark Core General Optimization(스파크 최적화 기본) - Jaemun Jung&url=https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" data-toggle="tooltip" data-placement="top"
+        <a href="https://telegram.me/share?text=Apache Spark - Core Optimization(스파크 최적화) - Jaemun Jung&url=https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" data-toggle="tooltip" data-placement="top"
           title="Telegram" target="_blank" rel="noopener" aria-label="Telegram">
           <i class="fa-fw fab fa-telegram"></i>
         </a>
@@ -605,12 +911,12 @@ p.24 architecture</p>
         
         
         
-        <li><a href="/jaemunbro.github.io/posts/troubleshooting-spark/">Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)</a></li>
+        <li><a href="/jaemunbro.github.io/posts/troubleshooting-spark/">Apache Spark - Troubleshooting Cheatsheet (스파크 트러블슈팅 가이드)</a></li>
       
         
         
         
-        <li><a href="/jaemunbro.github.io/posts/spark-basic-optimization/">Apache Spark Core General Optimization(스파크 최적화 기본)</a></li>
+        <li><a href="/jaemunbro.github.io/posts/spark-basic-optimization/">Apache Spark - Core Optimization(스파크 최적화)</a></li>
       
 
       </ul>
@@ -841,7 +1147,7 @@ p.24 architecture</p>
 
 </span>
 
-            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)</h3>
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Apache Spark - Troubleshooting Cheatsheet (스파크 트러블슈팅 가이드)</h3>
             <div class="text-muted small">
               <p>
                 
@@ -930,7 +1236,7 @@ Medium 플랫폼은 유료 구독자만 볼 수 있는 블로그 글이 많아�
   
   <a href="/jaemunbro.github.io/posts/troubleshooting-spark/" class="btn btn-outline-primary"
     prompt="Older">
-    <p>Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)</p>
+    <p>Apache Spark - Troubleshooting Cheatsheet (스파크 트러블슈팅 가이드)</p>
   </a>
   
 
@@ -962,7 +1268,7 @@ Medium 플랫폼은 유료 구독자만 볼 수 있는 블로그 글이 많아�
     scriptUrl: '//jaemunbro-github-io.disqus.com/embed.js',
 
     disqusConfig: function() {
-      this.page.title = 'Apache Spark Core General Optimization(스파크 최적화 기본)';
+      this.page.title = 'Apache Spark - Core Optimization(스파크 최적화)';
       this.page.url = 'https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/';
       this.page.identifier = '/posts/spark-basic-optimization/';
     }
@@ -979,6 +1285,18 @@ Medium 플랫폼은 유료 구독자만 볼 수 있는 블로그 글이 많아�
 
 </div> <!-- .row -->
 
+
+
+  <!--
+  image lazy load: https://github.com/ApoorvSaxena/lozad.js
+-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+
+<script type="text/javascript">
+  const imgs = document.querySelectorAll('#main > div.row:first-child > div:first-child img');
+  const observer = lozad(imgs);
+  observer.observe();
+</script>
 
 
 

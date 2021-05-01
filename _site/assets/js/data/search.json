@@ -1,7 +1,7 @@
 [
   
   {
-    "title": "Apache Spark Core General Optimization(스파크 최적화 기본)",
+    "title": "Apache Spark - Core Optimization(스파크 최적화)",
     "url": "/jaemunbro.github.io/posts/spark-basic-optimization/",
     "categories": "Apache Spark",
     "tags": "Spark, Optimization",
@@ -12,13 +12,13 @@
 
 
 
-    "snippet": "스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자.본문 작성에 주되게 참조한 소스는 Spark + AI Summit Europe 2019에서 발표한 Databricks의 Daniel Tomes의 세션인 Apache Spark Core – Practical Optimization이다.Referencehttps://databricks.com/session_eu19/apache-spark-core-practical-optimizationhttps://www.qubole.com/blog/an-introduction-to-apac..."
+    "snippet": "스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자.본문 작성에 주되게 참조한 소스는 Spark + AI Summit Europe 2019에서 발표한 Databricks의 Daniel Tomes의 세션인 Apache Spark Core – Practical Optimization이다.General Optimization아래 Advanced Optimization에서 조금 깊이 파보기 전에, 기본적인 최적화 방법들에 대해서 간단히 살펴보자.File Format 최적화  Parquet, ORC와 같은 columnar file ..."
   },
   
   {
-    "title": "Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)",
+    "title": "Apache Spark - Troubleshooting Cheatsheet (스파크 트러블슈팅 가이드)",
     "url": "/jaemunbro.github.io/posts/troubleshooting-spark/",
-    "categories": "ETC, Thoughts",
+    "categories": "Apache Spark",
     "tags": "Spark, Troubleshooting",
     "date": "2021-04-30 01:43:00 +0900",
     

@@ -4,7 +4,7 @@
   <id>https://jaemunbro.github.io/jaemunbro.github.io/</id>
   <title>Jaemun Jung</title>
   <subtitle>description.. nothing yet.</subtitle>
-  <updated>2021-05-02T01:40:06+09:00</updated>
+  <updated>2021-05-02T04:01:04+09:00</updated>
   <author>
     <name>Jaemun Jung</name>
     <uri>https://jaemunbro.github.io/jaemunbro.github.io/</uri>
@@ -20,8 +20,8 @@
 
   
   <entry>
-    <title>Apache Spark Core General Optimization(스파크 최적화 기본)</title>
-    <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" rel="alternate" type="text/html" title="Apache Spark Core General Optimization(스파크 최적화 기본)" />
+    <title>Apache Spark - Core Optimization(스파크 최적화)</title>
+    <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" rel="alternate" type="text/html" title="Apache Spark - Core Optimization(스파크 최적화)" />
     <published>2021-05-01T01:43:00+09:00</published>
   
     <updated>2021-05-02T00:47:02+09:00</updated>
@@ -49,12 +49,15 @@
       스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자.
 본문 작성에 주되게 참조한 소스는 Spark + AI Summit Europe 2019에서 발표한 Databricks의 Daniel Tomes의 세션인 Apache Spark Core – Practical Optimization이다.
 
-Reference
-https://databricks.com/session_eu19/apache-spark-core-practical-optimization
-https://www.qubole.com/blog/an-introduction-to-apache-spark-optimization-in-qubole/
+General Optimization
 
-GC
-https://databricks.com/blog/2015/05/28/tuning-java-garbage...
+아래 Advanced Optimization에서 조금 깊이 파보기 전에, 기본적인 최적화 방법들에 대해서 간단히 살펴보자.
+
+File Format 최적화
+
+  Parquet, ORC와 같은 columnar file 활용
+  splittable file format 사용 (snappy, bzip2와 같은 compression format)
+  너무 많은 small file은 c...
     </summary>
   
 
@@ -62,8 +65,8 @@ https://databricks.com/blog/2015/05/28/tuning-java-garbage...
 
   
   <entry>
-    <title>Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)</title>
-    <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" rel="alternate" type="text/html" title="Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)" />
+    <title>Apache Spark - Troubleshooting Cheatsheet (스파크 트러블슈팅 가이드)</title>
+    <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" rel="alternate" type="text/html" title="Apache Spark - Troubleshooting Cheatsheet (스파크 트러블슈팅 가이드)" />
     <published>2021-04-30T01:43:00+09:00</published>
   
     <updated>2021-05-02T00:47:02+09:00</updated>
@@ -76,9 +79,7 @@ https://databricks.com/blog/2015/05/28/tuning-java-garbage...
 
   
     
-    <category term="ETC" />
-    
-    <category term="Thoughts" />
+    <category term="Apache Spark" />
     
   
 
