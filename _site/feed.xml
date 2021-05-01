@@ -4,7 +4,7 @@
   <id>https://jaemunbro.github.io/jaemunbro.github.io/</id>
   <title>Jaemun Jung</title>
   <subtitle>description.. nothing yet.</subtitle>
-  <updated>2021-05-02T04:01:04+09:00</updated>
+  <updated>2021-05-02T04:11:35+09:00</updated>
   <author>
     <name>Jaemun Jung</name>
     <uri>https://jaemunbro.github.io/jaemunbro.github.io/</uri>
@@ -24,7 +24,7 @@
     <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" rel="alternate" type="text/html" title="Apache Spark - Core Optimization(스파크 최적화)" />
     <published>2021-05-01T01:43:00+09:00</published>
   
-    <updated>2021-05-02T00:47:02+09:00</updated>
+    <updated>2021-05-02T04:01:38+09:00</updated>
   
     <id>https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/</id>
     <content src="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" />
@@ -69,7 +69,7 @@ File Format 최적화
     <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" rel="alternate" type="text/html" title="Apache Spark - Troubleshooting Cheatsheet (스파크 트러블슈팅 가이드)" />
     <published>2021-04-30T01:43:00+09:00</published>
   
-    <updated>2021-05-02T00:47:02+09:00</updated>
+    <updated>2021-05-02T04:01:38+09:00</updated>
   
     <id>https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/</id>
     <content src="https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" />
