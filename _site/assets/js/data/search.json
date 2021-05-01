@@ -16,21 +16,6 @@
   },
   
   {
-    "title": "Apache Spark skew optimization(불균형 데이터 최적화)",
-    "url": "/jaemunbro.github.io/posts/spark-skew-optimization/",
-    "categories": "Apache Spark",
-    "tags": "Spark, Optimization",
-    "date": "2021-05-01 01:43:00 +0900",
-    
-
-
-
-
-
-    "snippet": "Referencehttps://databricks.com/session_eu19/apache-spark-core-practical-optimizationhttps://medium.com/road-to-data-engineering/spark-performance-optimization-series-1-skew-2762a0f288chttps://docs.databricks.com/delta/join-performance/skew-join.htmlhttps://docs.databricks.com/spark/latest/spark-..."
-  },
-  
-  {
     "title": "Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)",
     "url": "/jaemunbro.github.io/posts/troubleshooting-spark/",
     "categories": "ETC, Thoughts",

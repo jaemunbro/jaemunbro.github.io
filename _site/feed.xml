@@ -4,7 +4,7 @@
   <id>https://jaemunbro.github.io/jaemunbro.github.io/</id>
   <title>Jaemun Jung</title>
   <subtitle>description.. nothing yet.</subtitle>
-  <updated>2021-05-02T01:00:47+09:00</updated>
+  <updated>2021-05-02T01:02:30+09:00</updated>
   <author>
     <name>Jaemun Jung</name>
     <uri>https://jaemunbro.github.io/jaemunbro.github.io/</uri>
@@ -55,47 +55,6 @@ https://www.qubole.com/blog/an-introduction-to-apache-spark-optimization-in-qubo
 
 GC
 https://databricks.com/blog/2015/05/28/tuning-java-garbage...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Apache Spark skew optimization(불균형 데이터 최적화)</title>
-    <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/" rel="alternate" type="text/html" title="Apache Spark skew optimization(불균형 데이터 최적화)" />
-    <published>2021-05-01T01:43:00+09:00</published>
-  
-    <updated>2021-05-02T00:47:02+09:00</updated>
-  
-    <id>https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/</id>
-    <content src="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/" />
-    <author>
-      <name>Jaemun Jung</name>
-    </author>
-
-  
-    
-    <category term="Apache Spark" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Reference
-https://databricks.com/session_eu19/apache-spark-core-practical-optimization
-
-https://medium.com/road-to-data-engineering/spark-performance-optimization-series-1-skew-2762a0f288c
-https://docs.databricks.com/delta/join-performance/skew-join.html
-https://docs.databricks.com/spark/latest/spark-sql/aqe.html
-https://itnext.io/handling-data-skew-in-apache-spark-9f56343e58e8?gi=bbd8d937c1e1
-...
     </summary>
   
 
