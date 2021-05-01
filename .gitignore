@@ -1,6 +1,8 @@
 # hidden files
 .*
 !.github
+!/.gitignore
+
 
 # bundler cache
 _site
