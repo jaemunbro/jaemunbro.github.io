@@ -4,7 +4,7 @@
   <id>https://jaemunbro.github.io/jaemunbro.github.io/</id>
   <title>Jaemun Jung</title>
   <subtitle>description.. nothing yet.</subtitle>
-  <updated>2021-05-01T23:30:01+09:00</updated>
+  <updated>2021-05-02T00:45:31+09:00</updated>
   <author>
     <name>Jaemun Jung</name>
     <uri>https://jaemunbro.github.io/jaemunbro.github.io/</uri>
@@ -20,11 +20,11 @@
 
   
   <entry>
-    <title>Spark Basic Optimization</title>
-    <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" rel="alternate" type="text/html" title="Spark Basic Optimization" />
-    <published>2021-05-01T00:00:00+09:00</published>
+    <title>Apache Spark Core General Optimization(스파크 최적화 기본)</title>
+    <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" rel="alternate" type="text/html" title="Apache Spark Core General Optimization(스파크 최적화 기본)" />
+    <published>2021-05-01T01:43:00+09:00</published>
   
-    <updated>2021-05-01T00:00:00+09:00</updated>
+    <updated>2021-05-01T01:43:00+09:00</updated>
   
     <id>https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/</id>
     <content src="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-basic-optimization/" />
@@ -33,6 +33,8 @@
     </author>
 
   
+    
+    <category term="Apache Spark" />
     
   
 
@@ -44,8 +46,15 @@
 
 
 
-      d
+      스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자.
+본문 작성에 주되게 참조한 소스는 Spark + AI Summit Europe 2019에서 발표한 Databricks의 Daniel Tomes의 세션인 Apache Spark Core – Practical Optimization이다.
 
+Reference
+https://databricks.com/session_eu19/apache-spark-core-practical-optimization
+https://www.qubole.com/blog/an-introduction-to-apache-spark-optimization-in-qubole/
+
+GC
+https://databricks.com/blog/2015/05/28/tuning-java-garbage...
     </summary>
   
 
@@ -53,8 +62,49 @@
 
   
   <entry>
-    <title>Apache Spark 트러블슈팅 가이드</title>
-    <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" rel="alternate" type="text/html" title="Apache Spark 트러블슈팅 가이드" />
+    <title>Apache Spark skew optimization(불균형 데이터 최적화)</title>
+    <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/" rel="alternate" type="text/html" title="Apache Spark skew optimization(불균형 데이터 최적화)" />
+    <published>2021-05-01T01:43:00+09:00</published>
+  
+    <updated>2021-05-01T01:43:00+09:00</updated>
+  
+    <id>https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/</id>
+    <content src="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/" />
+    <author>
+      <name>Jaemun Jung</name>
+    </author>
+
+  
+    
+    <category term="Apache Spark" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Reference
+https://databricks.com/session_eu19/apache-spark-core-practical-optimization
+
+https://medium.com/road-to-data-engineering/spark-performance-optimization-series-1-skew-2762a0f288c
+https://docs.databricks.com/delta/join-performance/skew-join.html
+https://docs.databricks.com/spark/latest/spark-sql/aqe.html
+https://itnext.io/handling-data-skew-in-apache-spark-9f56343e58e8?gi=bbd8d937c1e1
+...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)</title>
+    <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" rel="alternate" type="text/html" title="Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)" />
     <published>2021-04-30T01:43:00+09:00</published>
   
     <updated>2021-04-30T01:43:00+09:00</updated>
@@ -67,7 +117,9 @@
 
   
     
-    <category term="Apache Spark" />
+    <category term="ETC" />
+    
+    <category term="Thoughts" />
     
   
 
@@ -105,50 +157,11 @@ jmap, jstack, jstat, jhat과 같은 OpenJDK ...
 
   
   <entry>
-    <title>Spark Skew Optimization</title>
-    <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/" rel="alternate" type="text/html" title="Spark Skew Optimization" />
-    <published>2021-04-30T00:00:00+09:00</published>
-  
-    <updated>2021-04-30T00:00:00+09:00</updated>
-  
-    <id>https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/</id>
-    <content src="https://jaemunbro.github.io/jaemunbro.github.io/posts/spark-skew-optimization/" />
-    <author>
-      <name>Jaemun Jung</name>
-    </author>
-
-  
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      
-Reference
-https://databricks.com/session_eu19/apache-spark-core-practical-optimization
-
-https://medium.com/road-to-data-engineering/spark-performance-optimization-series-1-skew-2762a0f288c
-https://docs.databricks.com/delta/join-performance/skew-join.html
-https://docs.databricks.com/spark/latest/spark-sql/aqe.html
-https://itnext.io/handling-data-skew-in-apache-spark-9f56343e58e8?gi=bbd8d937c1e1...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
     <title>블로그 이사</title>
     <link href="https://jaemunbro.github.io/jaemunbro.github.io/posts/blog-migration/" rel="alternate" type="text/html" title="블로그 이사" />
-    <published>2021-04-28T01:25:00+09:00</published>
+    <published>2021-04-27T11:25:00+09:00</published>
   
-    <updated>2021-04-28T01:48:37+09:00</updated>
+    <updated>2021-04-27T11:25:00+09:00</updated>
   
     <id>https://jaemunbro.github.io/jaemunbro.github.io/posts/blog-migration/</id>
     <content src="https://jaemunbro.github.io/jaemunbro.github.io/posts/blog-migration/" />

@@ -1,3 +1,11 @@
+---
+title: Apache Spark skew optimization(불균형 데이터 최적화)
+author: Jaemun Jung
+date: 2021-05-01 01:43:00 +0900
+categories: [Apache Spark]
+tags: [Spark, Optimization]
+---
+
 
 ## Reference
 https://databricks.com/session_eu19/apache-spark-core-practical-optimization

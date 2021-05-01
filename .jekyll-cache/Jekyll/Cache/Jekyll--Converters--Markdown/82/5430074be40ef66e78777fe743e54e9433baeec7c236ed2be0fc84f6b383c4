@@ -1,0 +1,15 @@
+I"<p>스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자.</p>
+
+<h2 id="reference">Reference</h2>
+<p>https://databricks.com/session_eu19/apache-spark-core-practical-optimization
+https://www.qubole.com/blog/an-introduction-to-apache-spark-optimization-in-qubole/</p>
+
+<p>GC
+https://databricks.com/blog/2015/05/28/tuning-java-garbage-collection-for-spark-applications.html</p>
+
+<p>https://www.slideshare.net/SandyRyza/spark-job-failures-talk?next_slideshow=1
+p.24 architecture</p>
+
+<h1 id="another">another</h1>
+<p>https://databricks.com/blog/2015/05/28/tuning-java-garbage-collection-for-spark-applications.html</p>
+:ET

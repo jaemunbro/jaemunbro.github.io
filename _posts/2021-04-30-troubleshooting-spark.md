@@ -1,8 +1,10 @@
 ---
-title: Apache Spark 트러블슈팅 가이드
+title: Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)
 author: Jaemun Jung
 date: 2021-04-30 01:43:00 +0900
 categories: [Apache Spark]
+categories: [ETC, Thoughts]
+tags: []
 tags: [Spark, Troubleshooting]
 ---
 
@@ -86,20 +88,22 @@ Executor의 사이즈를 늘려주는 방법을 통해 해결할 수도 있지�
 ## Driver Memory Exceptions
 -----------
 드라이버 메모리가 부족한 경우는 보통 (휴먼 에러가 아니라면) `--driver-memory` 설정을 통해 해결한다. Default값인 512M는 일반적으로 운영환경에서는 너무 작은 값이다.  
-*Spark SQL과 Spark Strmeaing은 일반적으로 큰 driver heap size를 요구하는 spark job의 형태*다.
+**Spark SQL과 Spark Strmeaing은 일반적으로 큰 driver heap size를 요구하는 spark job의 형태**다.
 
 
 ### Exception due to Spark driver running out of memory
 -----------
+명시적으로 collect() action 등의 driver memory를 사용하지 않는데, driver memory exception이 나서 의아했던 적이 있다. Spark SQL의 Optimizer가 relation을 broadcasting 하기 위해서 중간 과정으로 필요할 수 있다.
 드라이버 메모리가 부족한 경우 아래와 같은 형태의 메시지를 볼 수 있다.
 ```java
 Exception in thread "broadcast-exchange-0" java.lang.OutOfMemoryError: Not enough memory to build and broadcast the table
 to all worker nodes. As a workaround, you can either disable broadcast by setting spark.sql.autoBroadcastJoinThreshold to -1
 or increase the spark driver memory by setting spark.driver.memory to a higher value
 ```
-에러 메시지 상 workaround를 제시된대로, 해당 job에 대해서 브로드캐스트 조인을 끄거나, 아니면 드라이버 메모리의 세팅을 늘려줘서 해결할 수 있다. 
-아무래도 메모리가 허용한다면 당연히 후자가 좋을 것이다. 
-`--conf spark.driver.memory= <XX>g
+에러 메시지 상 workaround를 제시된대로, 해당 job에 대해서 브로드캐스트 조인을 끄거나, 브로드캐스트 조인의 threshold를 낮추는 것을 고려할 수도 있다. 아니면 드라이버 메모리의 세팅을 늘려줘서 해결할 수 있다. 
+메모리가 허용한다면 당연히 후자가 좋을 것이다. 
+`--conf spark.driver.memory= <XX>g`
+
 
 ### Job failure because the Application Master that launches the driver exceeds memory limits
 -----------

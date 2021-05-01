@@ -1,24 +1,39 @@
 [
   
   {
-    "title": "Spark Basic Optimization",
+    "title": "Apache Spark Core General Optimization(스파크 최적화 기본)",
     "url": "/jaemunbro.github.io/posts/spark-basic-optimization/",
-    "categories": "",
-    "tags": "",
-    "date": "2021-05-01 00:00:00 +0900",
+    "categories": "Apache Spark",
+    "tags": "Spark, Optimization",
+    "date": "2021-05-01 01:43:00 +0900",
     
 
 
 
 
 
-    "snippet": "d"
+    "snippet": "스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자.본문 작성에 주되게 참조한 소스는 Spark + AI Summit Europe 2019에서 발표한 Databricks의 Daniel Tomes의 세션인 Apache Spark Core – Practical Optimization이다.Referencehttps://databricks.com/session_eu19/apache-spark-core-practical-optimizationhttps://www.qubole.com/blog/an-introduction-to-apac..."
   },
   
   {
-    "title": "Apache Spark 트러블슈팅 가이드",
-    "url": "/jaemunbro.github.io/posts/troubleshooting-spark/",
+    "title": "Apache Spark skew optimization(불균형 데이터 최적화)",
+    "url": "/jaemunbro.github.io/posts/spark-skew-optimization/",
     "categories": "Apache Spark",
+    "tags": "Spark, Optimization",
+    "date": "2021-05-01 01:43:00 +0900",
+    
+
+
+
+
+
+    "snippet": "Referencehttps://databricks.com/session_eu19/apache-spark-core-practical-optimizationhttps://medium.com/road-to-data-engineering/spark-performance-optimization-series-1-skew-2762a0f288chttps://docs.databricks.com/delta/join-performance/skew-join.htmlhttps://docs.databricks.com/spark/latest/spark-..."
+  },
+  
+  {
+    "title": "Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)",
+    "url": "/jaemunbro.github.io/posts/troubleshooting-spark/",
+    "categories": "ETC, Thoughts",
     "tags": "Spark, Troubleshooting",
     "date": "2021-04-30 01:43:00 +0900",
     
@@ -31,26 +46,11 @@
   },
   
   {
-    "title": "Spark Skew Optimization",
-    "url": "/jaemunbro.github.io/posts/spark-skew-optimization/",
-    "categories": "",
-    "tags": "",
-    "date": "2021-04-30 00:00:00 +0900",
-    
-
-
-
-
-
-    "snippet": "Referencehttps://databricks.com/session_eu19/apache-spark-core-practical-optimizationhttps://medium.com/road-to-data-engineering/spark-performance-optimization-series-1-skew-2762a0f288chttps://docs.databricks.com/delta/join-performance/skew-join.htmlhttps://docs.databricks.com/spark/latest/spark-..."
-  },
-  
-  {
     "title": "블로그 이사",
     "url": "/jaemunbro.github.io/posts/blog-migration/",
     "categories": "ETC, Thoughts",
     "tags": "",
-    "date": "2021-04-28 01:25:00 +0900",
+    "date": "2021-04-27 11:25:00 +0900",
     
 
 

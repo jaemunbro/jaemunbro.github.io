@@ -26,7 +26,7 @@
 
   <!-- Begin Jekyll SEO tag v2.7.1 -->
 <meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Apache Spark 트러블슈팅 가이드" />
+<meta property="og:title" content="Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)" />
 <meta name="author" content="Jaemun Jung" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="스파크의 문제 사례들과 그 해결 방법들에 대해 알아보자. 문제 케이스들은 일부 직접 겪은 것들과 본문 하단 링크의 케이스들을 취합하였다." />
@@ -37,14 +37,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-04-30T01:43:00+09:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Apache Spark 트러블슈팅 가이드" />
+<meta property="twitter:title" content="Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)" />
 <meta name="google-site-verification" content="google_meta_tag_verification" />
 <script type="application/ld+json">
-{"datePublished":"2021-04-30T01:43:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/"},"url":"https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/","author":{"@type":"Person","name":"Jaemun Jung"},"@type":"BlogPosting","description":"스파크의 문제 사례들과 그 해결 방법들에 대해 알아보자. 문제 케이스들은 일부 직접 겪은 것들과 본문 하단 링크의 케이스들을 취합하였다.","headline":"Apache Spark 트러블슈팅 가이드","dateModified":"2021-04-30T01:43:00+09:00","@context":"https://schema.org"}</script>
+{"datePublished":"2021-04-30T01:43:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/"},"url":"https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/","author":{"@type":"Person","name":"Jaemun Jung"},"@type":"BlogPosting","description":"스파크의 문제 사례들과 그 해결 방법들에 대해 알아보자. 문제 케이스들은 일부 직접 겪은 것들과 본문 하단 링크의 케이스들을 취합하였다.","headline":"Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)","dateModified":"2021-04-30T01:43:00+09:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
-  <title>Apache Spark 트러블슈팅 가이드 | Jaemun Jung
+  <title>Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드) | Jaemun Jung
   </title>
 
   <!--
@@ -294,7 +294,7 @@
       
 
         
-          <span>Apache Spark 트러블슈팅 가이드</span>
+          <span>Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)</span>
 
         
 
@@ -357,7 +357,7 @@
 
     <div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4">
 
-      <h1 data-toc-skip>Apache Spark 트러블슈팅 가이드</h1>
+      <h1 data-toc-skip>Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)</h1>
 
       <div class="post-meta text-muted d-flex flex-column">
         <!-- Published date and author -->
@@ -416,7 +416,7 @@
 
 
 <!-- return element -->
-<span class="readtime" data-toggle="tooltip" data-placement="bottom" title="3099 words">17 min</span>
+<span class="readtime" data-toggle="tooltip" data-placement="bottom" title="3180 words">17 min</span>
 
 
           <!-- page views -->
@@ -521,11 +521,12 @@ Executor의 사이즈를 늘려주는 방법을 통해 해결할 수도 있지�
 <h2 id="driver-memory-exceptions">Driver Memory Exceptions</h2>
 <hr />
 <p>드라이버 메모리가 부족한 경우는 보통 (휴먼 에러가 아니라면) <code class="language-plaintext highlighter-rouge">--driver-memory</code> 설정을 통해 해결한다. Default값인 512M는 일반적으로 운영환경에서는 너무 작은 값이다.<br />
-<em>Spark SQL과 Spark Strmeaing은 일반적으로 큰 driver heap size를 요구하는 spark job의 형태</em>다.</p>
+<strong>Spark SQL과 Spark Strmeaing은 일반적으로 큰 driver heap size를 요구하는 spark job의 형태</strong>다.</p>
 
 <h3 id="exception-due-to-spark-driver-running-out-of-memory">Exception due to Spark driver running out of memory</h3>
 <hr />
-<p>드라이버 메모리가 부족한 경우 아래와 같은 형태의 메시지를 볼 수 있다.</p>
+<p>명시적으로 collect() action 등의 driver memory를 사용하지 않는데, driver memory exception이 나서 의아했던 적이 있다. Spark SQL의 Optimizer가 relation을 broadcasting 하기 위해서 중간 과정으로 필요할 수 있다.
+드라이버 메모리가 부족한 경우 아래와 같은 형태의 메시지를 볼 수 있다.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
@@ -533,9 +534,9 @@ Executor의 사이즈를 늘려주는 방법을 통해 해결할 수도 있지�
 <span class="n">to</span> <span class="n">all</span> <span class="n">worker</span> <span class="n">nodes</span><span class="o">.</span> <span class="nc">As</span> <span class="n">a</span> <span class="n">workaround</span><span class="o">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">either</span> <span class="n">disable</span> <span class="n">broadcast</span> <span class="n">by</span> <span class="n">setting</span> <span class="n">spark</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">autoBroadcastJoinThreshold</span> <span class="n">to</span> <span class="o">-</span><span class="mi">1</span>
 <span class="n">or</span> <span class="n">increase</span> <span class="n">the</span> <span class="n">spark</span> <span class="n">driver</span> <span class="n">memory</span> <span class="n">by</span> <span class="n">setting</span> <span class="n">spark</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">memory</span> <span class="n">to</span> <span class="n">a</span> <span class="n">higher</span> <span class="n">value</span>
 </pre></td></tr></tbody></table></code></div></div>
-<p>에러 메시지 상 workaround를 제시된대로, 해당 job에 대해서 브로드캐스트 조인을 끄거나, 아니면 드라이버 메모리의 세팅을 늘려줘서 해결할 수 있다. 
-아무래도 메모리가 허용한다면 당연히 후자가 좋을 것이다. 
-`–conf spark.driver.memory= <XX>g</XX></p>
+<p>에러 메시지 상 workaround를 제시된대로, 해당 job에 대해서 브로드캐스트 조인을 끄거나, 브로드캐스트 조인의 threshold를 낮추는 것을 고려할 수도 있다. 아니면 드라이버 메모리의 세팅을 늘려줘서 해결할 수 있다. 
+메모리가 허용한다면 당연히 후자가 좋을 것이다. 
+<code class="language-plaintext highlighter-rouge">--conf spark.driver.memory= &lt;XX&gt;g</code></p>
 
 <h3 id="job-failure-because-the-application-master-that-launches-the-driver-exceeds-memory-limits">Job failure because the Application Master that launches the driver exceeds memory limits</h3>
 <hr />
@@ -775,7 +776,8 @@ s3://awsexamplebucket/documents
         <div class="post-meta mb-3">
           <i class="far fa-folder-open fa-fw mr-1"></i>
           
-            <a href='/jaemunbro.github.io/categories/apache-spark/'>Apache Spark</a>
+            <a href='/jaemunbro.github.io/categories/etc/'>ETC</a>,
+            <a href='/jaemunbro.github.io/categories/thoughts/'>Thoughts</a>
         </div>
         
 
@@ -815,19 +817,19 @@ s3://awsexamplebucket/documents
 
     
       
-        <a href="https://twitter.com/intent/tweet?text=Apache Spark 트러블슈팅 가이드 - Jaemun Jung&url=https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" data-toggle="tooltip" data-placement="top"
+        <a href="https://twitter.com/intent/tweet?text=Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드) - Jaemun Jung&url=https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" data-toggle="tooltip" data-placement="top"
           title="Twitter" target="_blank" rel="noopener" aria-label="Twitter">
           <i class="fa-fw fab fa-twitter"></i>
         </a>
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?title=Apache Spark 트러블슈팅 가이드 - Jaemun Jung&u=https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" data-toggle="tooltip" data-placement="top"
+        <a href="https://www.facebook.com/sharer/sharer.php?title=Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드) - Jaemun Jung&u=https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" data-toggle="tooltip" data-placement="top"
           title="Facebook" target="_blank" rel="noopener" aria-label="Facebook">
           <i class="fa-fw fab fa-facebook-square"></i>
         </a>
     
       
-        <a href="https://telegram.me/share?text=Apache Spark 트러블슈팅 가이드 - Jaemun Jung&url=https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" data-toggle="tooltip" data-placement="top"
+        <a href="https://telegram.me/share?text=Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드) - Jaemun Jung&url=https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/" data-toggle="tooltip" data-placement="top"
           title="Telegram" target="_blank" rel="noopener" aria-label="Telegram">
           <i class="fa-fw fab fa-telegram"></i>
         </a>
@@ -884,22 +886,6 @@ s3://awsexamplebucket/documents
 
   
 
-    <div id="access-lastmod" class="post">
-      <span>Recent Update</span>
-      <ul class="post-content pl-0 pb-1 ml-1 mt-2">
-
-      
-        
-        
-        
-        <li><a href="/jaemunbro.github.io/posts/blog-migration/">블로그 이사</a></li>
-      
-
-      </ul>
-    </div> <!-- #access-lastmod -->
-
-  
-
   
 
 
@@ -921,6 +907,11 @@ s3://awsexamplebucket/documents
     
     
     
+  
+    
+    
+    
+    
       
         
         
@@ -931,6 +922,18 @@ s3://awsexamplebucket/documents
     
     
       
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -951,6 +954,9 @@ s3://awsexamplebucket/documents
       
         
         <a class="post-tag" href="/jaemunbro.github.io/tags/spark/">Spark</a>
+      
+        
+        <a class="post-tag" href="/jaemunbro.github.io/tags/optimization/">Optimization</a>
       
         
         <a class="post-tag" href="/jaemunbro.github.io/tags/troubleshooting/">Troubleshooting</a>
@@ -1015,20 +1021,20 @@ s3://awsexamplebucket/documents
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
     
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
   
 
   
@@ -1053,47 +1059,63 @@ s3://awsexamplebucket/documents
 
 
 
-  
-    
-    
-      
-      
-        
-        
-        
-      
-    
-  
-    
-    
-  
-    
-    
-      
-      
-        
-        
-        
-      
-    
-  
-    
-    
-      
-      
-        
-        
-        
-          
-
-
-
 
 
   <div id="related-posts" class="mt-5 mb-2 mb-sm-4">
     <h3 class="pt-2 mt-1 mb-4 ml-1"
       data-toc-skip>Further Reading</h3>
     <div class="card-deck mb-4">
+    
+      
+      
+      <div class="card">
+        <a href="/jaemunbro.github.io/posts/spark-skew-optimization/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: /assets/js/_utils/timeage.js
+-->
+
+
+
+
+
+<span class="timeago small"
+  
+
+  
+   >
+
+  
+  
+
+  
+    May  1
+  
+
+  <i class="unloaded">2021-05-01T01:43:00+09:00</i>
+
+</span>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Apache Spark skew optimization(불균형 데이터 최적화)</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                Reference
+https://databricks.com/session_eu19/apache-spark-core-practical-optimization
+
+https://medium.com/road-to-data-engineering/spark-performance-optimization-series-1-skew-2762a0f288c
+https://...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
     
       
       
@@ -1122,11 +1144,11 @@ s3://awsexamplebucket/documents
     May  1
   
 
-  <i class="unloaded">2021-05-01T00:00:00+09:00</i>
+  <i class="unloaded">2021-05-01T01:43:00+09:00</i>
 
 </span>
 
-            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Spark Basic Optimization</h3>
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Apache Spark Core General Optimization(스파크 최적화 기본)</h3>
             <div class="text-muted small">
               <p>
                 
@@ -1135,60 +1157,11 @@ s3://awsexamplebucket/documents
 
 
 
-                d
+                스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자.
+본문 작성에 주되게 참조한 소스는 Spark + AI Summit Europe 2019에서 발표한 Databricks의 Daniel Tomes의 세션인 Apache Spark Core – Practical Optimization이다.
 
-              </p>
-            </div>
-          </div>
-        </a>
-      </div>
-    
-      
-      
-      <div class="card">
-        <a href="/jaemunbro.github.io/posts/spark-skew-optimization/">
-          <div class="card-body">
-            <!--
-  Date format snippet
-  See: /assets/js/_utils/timeage.js
--->
-
-
-
-
-
-<span class="timeago small"
-  
-
-  
-   >
-
-  
-  
-
-  
-    Apr 30
-  
-
-  <i class="unloaded">2021-04-30T00:00:00+09:00</i>
-
-</span>
-
-            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Spark Skew Optimization</h3>
-            <div class="text-muted small">
-              <p>
-                
-
-
-
-
-
-                
 Reference
-https://databricks.com/session_eu19/apache-spark-core-practical-optimization
-
-https://medium.com/road-to-data-engineering/spark-performance-optimization-series-1-skew-2762a0f288c
-https:/...
+https://databricks.com/...
               </p>
             </div>
           </div>
@@ -1219,10 +1192,10 @@ https:/...
   
 
   
-    Apr 28
+    Apr 27
   
 
-  <i class="unloaded">2021-04-28T01:25:00+09:00</i>
+  <i class="unloaded">2021-04-27T11:25:00+09:00</i>
 
 </span>
 
@@ -1257,16 +1230,16 @@ Medium 플랫폼은 유료 구독자만 볼 수 있는 블로그 글이 많아�
 
 <div class="post-navigation d-flex justify-content-between">
   
-  <a href="/jaemunbro.github.io/posts/spark-skew-optimization/" class="btn btn-outline-primary"
+  <a href="/jaemunbro.github.io/posts/blog-migration/" class="btn btn-outline-primary"
     prompt="Older">
-    <p>Spark Skew Optimization</p>
+    <p>블로그 이사</p>
   </a>
   
 
   
-  <a href="/jaemunbro.github.io/posts/spark-basic-optimization/" class="btn btn-outline-primary"
+  <a href="/jaemunbro.github.io/posts/spark-skew-optimization/" class="btn btn-outline-primary"
     prompt="Newer">
-    <p>Spark Basic Optimization</p>
+    <p>Apache Spark skew optimization(불균형 데이터 최적화)</p>
   </a>
   
 
@@ -1291,7 +1264,7 @@ Medium 플랫폼은 유료 구독자만 볼 수 있는 블로그 글이 많아�
     scriptUrl: '//jaemunbro-github-io.disqus.com/embed.js',
 
     disqusConfig: function() {
-      this.page.title = 'Apache Spark 트러블슈팅 가이드';
+      this.page.title = 'Apache Spark Troubleshooting Cheatsheet(스파크 트러블슈팅 가이드)';
       this.page.url = 'https://jaemunbro.github.io/jaemunbro.github.io/posts/troubleshooting-spark/';
       this.page.identifier = '/posts/troubleshooting-spark/';
     }
@@ -1375,6 +1348,11 @@ Medium 플랫폼은 유료 구독자만 볼 수 있는 블로그 글이 많아�
     
     
     
+  
+    
+    
+    
+    
       
         
         
@@ -1385,6 +1363,18 @@ Medium 플랫폼은 유료 구독자만 볼 수 있는 블로그 글이 많아�
     
     
       
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -1400,6 +1390,9 @@ Medium 플랫폼은 유료 구독자만 볼 수 있는 블로그 글이 많아�
       
         
         <a class="post-tag" href="/jaemunbro.github.io/tags/spark/">Spark</a>
+      
+        
+        <a class="post-tag" href="/jaemunbro.github.io/tags/optimization/">Optimization</a>
       
         
         <a class="post-tag" href="/jaemunbro.github.io/tags/troubleshooting/">Troubleshooting</a>
