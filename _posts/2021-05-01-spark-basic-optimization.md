@@ -1,5 +1,5 @@
 ---
-title: Apache Spark - Core Optimization(스파크 최적화)
+title: Apache Spark - Core Optimization (스파크 최적화)
 author: Jaemun Jung
 date: 2021-05-01 01:43:00 +0900
 categories: [Apache Spark]
@@ -50,9 +50,10 @@ shuffle은 네트워크와 disk I/O를 포함하는 노드간 데이터 이동�
 - 모든 컬럼을 선택하기 위한 (*)는 지양하고, 필요한 컬럼을 선택해서 쓴다.
 - count()도 꼭 필요한 경우에만.
 
-### Skew
-- salting 통해 해결 (아래 Advanced Optimization 참조)
+### Skew  (아래 Advanced Optimization 참조)
+- salting 통해 해결
 - partition이 불균형한 경우, 균형잡힌 파티션을 재생성하기 위해 repartition을 하고 cache해두는 것을 고려해볼 수도 있다
+- Spark 3.0을 쓴다..ㅎ
 - SparkUI에서 partition size와 task duration을 확인하자
 
 ### UDF
@@ -93,43 +94,43 @@ shuffle은 네트워크와 disk I/O를 포함하는 노드간 데이터 이동�
 2. **최대한의 Core를 활용할 수 있도록 한다**
 이다. 데이터의 Input 단계부터 Shuffle 단계, Output 단계로 나눠서 알아보자.
 #### (1) Input  
-    - Size를 컨트롤한다.  
-    `spark.sql.file.maxPartitionBytes` default value : 128MB  
-        - Increase Parallelism: 코어의 활용률을 병렬도를 더 올리기 위해 쪼개서 읽을 수 있다. 
-        예시)
-        ![image](https://user-images.githubusercontent.com/29077671/116790207-11a69400-aaee-11eb-8b26-79e65539e52c.png)
-        shuffle이 없는 map job이므로 오직 read/write 속도에만 dependant한 task인데, 더 빠르게 처리하기 위해 maxPartitionSize를 core 수에 맞게 튜닝했고 그것만으로 시간을 50% 줄일 수 있었다. 더 많은 코어가 나누어서 처리했기 때문이다.
-        - Heavily Nested/Repetitive Data: 메모리에서 풀어냈을때 데이터가 커질 수 있으므로 더 작게 읽는 것이 필요할 수도 있다.
-        - Generating Data - Explode: 이 역시 새로운 데이터 컬럼을 만들면서 데이터가 메모리 상에서 커질 수 있으므로. 
-        - Source Structure is not optimal(upstream)
-        - UDFs  
+- Size를 컨트롤한다.  
+`spark.sql.file.maxPartitionBytes` default value : 128MB  
+    - Increase Parallelism: 코어의 활용률을 병렬도를 더 올리기 위해 쪼개서 읽을 수 있다. 
+    예시)
+    ![image](https://user-images.githubusercontent.com/29077671/116790207-11a69400-aaee-11eb-8b26-79e65539e52c.png)
+    shuffle이 없는 map job이므로 오직 read/write 속도에만 dependant한 task인데, 더 빠르게 처리하기 위해 maxPartitionSize를 core 수에 맞게 튜닝했고 그것만으로 시간을 50% 줄일 수 있었다. 더 많은 코어가 나누어서 처리했기 때문이다.
+    - Heavily Nested/Repetitive Data: 메모리에서 풀어냈을때 데이터가 커질 수 있으므로 더 작게 읽는 것이 필요할 수도 있다.
+    - Generating Data - Explode: 이 역시 새로운 데이터 컬럼을 만들면서 데이터가 메모리 상에서 커질 수 있으므로. 
+    - Source Structure is not optimal(upstream)
+    - UDFs  
 
 #### (2) Shuffle  
-    - Count를 컨트롤한다.
-    - `spark.sql.shuffle.partitions` default value : 200
-    - 가장 큰 셔플 스테이지의 타겟 사이즈를 파티션당 200MB 이하로 잡는 것이 적절하다.   
-    (target size <= 200 MB/partition)    
-        - 예시를 들어보자.
-        Shuffle Stage Input = 210GB  
-        210000MB / 200MB = 1050
-        -> `spark.conf.set("spark.sql.shuffle.partitions", 1050)`  
-        하지만 만약 클러스터의 가용 코어가 2000 이라면 다 활용하면 더 좋다.  
-        -> `spark.conf.set("spark.sql.shuffle.partitions", 2000)`    
+- Count를 컨트롤한다.
+- `spark.sql.shuffle.partitions` default value : 200
+- 가장 큰 셔플 스테이지의 타겟 사이즈를 파티션당 200MB 이하로 잡는 것이 적절하다.   
+(target size <= 200 MB/partition)    
+    - 예시를 들어보자.
+    Shuffle Stage Input = 210GB  
+    210000MB / 200MB = 1050
+    -> `spark.conf.set("spark.sql.shuffle.partitions", 1050)`  
+    하지만 만약 클러스터의 가용 코어가 2000 이라면 다 활용하면 더 좋다.  
+    -> `spark.conf.set("spark.sql.shuffle.partitions", 2000)`    
 
-        - 또 다른 예시 - spark history server의 stage 모니터링
-        ![image](https://user-images.githubusercontent.com/29077671/116789923-7c56d000-aaec-11eb-9fc7-0e7b1fcbe557.png)
-        위 예시의 우측 Summary Metrics를 보면 Median 값이 270MB이다. 아주 나쁘진 않지만 그래도 파티션이 부족하다고 봐야한다.
-        위의 예시에서 stage 19와 stage 20이 stage 21의 셔플의 소스이므로, 19와 20의 shuffle write이 21의 shuffle input이 라고 볼 수 있다.
-        간단하게 이야기해서, shuffle spill(memory/disk)가 일어나고 있다면 파티션이 더 필요하다고 이해해도 좋다.
-        - partition count = stage input data / target size
+    - 또 다른 예시 - spark history server의 stage 모니터링
+    ![image](https://user-images.githubusercontent.com/29077671/116789923-7c56d000-aaec-11eb-9fc7-0e7b1fcbe557.png)
+    위 예시의 우측 Summary Metrics를 보면 Median 값이 270MB이다. 아주 나쁘진 않지만 그래도 파티션이 부족하다고 봐야한다.
+    위의 예시에서 stage 19와 stage 20이 stage 21의 셔플의 소스이므로, 19와 20의 shuffle write이 21의 shuffle input이 라고 볼 수 있다.
+    간단하게 이야기해서, shuffle spill(memory/disk)가 일어나고 있다면 파티션이 더 필요하다고 이해해도 좋다.
+    - partition count = stage input data / target size
 
 #### (3) Output  
-    - Count를 컨트롤한다.
-    - coalesce(n) : 2000개의 partition이 shuffle하고 나서, write할 때 100개가 나눠서 할 수 있도록.
-    - Repartition(n) : partition을 증가시킬 때 사용. shuffle을 발생시키므로 꼭 필요한 경우가 아니면 사용하지 말자.
-    - df.write.option("maxRecordsPerFile", N) : 추천하는 방법은 아님.
-    ![image](https://user-images.githubusercontent.com/29077671/116790347-998c9e00-aaee-11eb-85be-baf026979fc3.png)
-    전체 160GB의 파일을 처리하는데 10개의 코어가 1.6GB씩 처리할 때와 100개의 코어가 처리할 때의 차이는 아주 크다.
+- Count를 컨트롤한다.
+- coalesce(n) : 2000개의 partition이 shuffle하고 나서, write할 때 100개가 나눠서 할 수 있도록.
+- Repartition(n) : partition을 증가시킬 때 사용. shuffle을 발생시키므로 꼭 필요한 경우가 아니면 사용하지 말자.
+- df.write.option("maxRecordsPerFile", N) : 추천하는 방법은 아님.
+![image](https://user-images.githubusercontent.com/29077671/116790347-998c9e00-aaee-11eb-85be-baf026979fc3.png)
+전체 160GB의 파일을 처리하는데 10개의 코어가 1.6GB씩 처리할 때와 100개의 코어가 처리할 때의 차이는 아주 크다.
 
 ## Skew Join Optimization
 ---------
@@ -149,6 +150,14 @@ df.withColumn("salt", lit(saltVal))
     .drop("salt")
     .orderBy(col.desc)
 ```
+
+- Spark3.0부터는 join 시 동적으로 splitting - replicating등의 작업을 통해 재분배하는 조건이 생겼다.
+`spark.sql.adaptive.skewJoin.enabled`  default: true
+`spark.sql.adaptive.skewJoin.skewedPartitionFactor`  default: 10
+`spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes`  default 256MB
+
+
+
 
 ## Minimize Data Scans (Persistence)
 -----------
@@ -189,7 +198,8 @@ coalesce를 쓰거나 shuffle partition count 세팅을 바꿔서 써라.
 진짜 필요한 경우에만 써라.  
 습관적으로 많이 쓰긴 하지만, 프로덕션 배포 전에 제외시키는 걸 잊지 말자!
 - distinctCount
--> 꼭 정확한 숫자가 필요한 것이 아니라면 가능하면 approxCountDistinct()를 써라. 2% 내외의 오차가 발생한다.
+-> 꼭 정확한 숫자가 필요한 것이 아니라면 가능하면 approxCountDistinct()를 써라.  
+생각해보면 2% 내외의 오차가 발생하는 것을 감수할 수 있는 경우가 많다.
 - distinct
     - distinct 대신 dropDuplicates을 써라.
     - dropDuplicates를 JOIN 전에 써라.
@@ -203,16 +213,18 @@ coalesce를 쓰거나 shuffle partition count 세팅을 바꿔서 써라.
 
 ### Advanced Parallelism
 - Driver Parallelism  
-델타 처리를 위한 예시
-![image](https://user-images.githubusercontent.com/29077671/116791534-0f483800-aaf6-11eb-9cd8-fd0d86925c62.png)
+델타 처리를 위한 예시. executor로 넘기기 전에 driver부터 multi thread로 일할 수 있도록 해준다.   
+![image](https://user-images.githubusercontent.com/29077671/116791534-0f483800-aaf6-11eb-9cd8-fd0d86925c62.png){: width="60%" height="60%"}
 - Horizontal Parallelsim
 - Executor Parallelism
 
 #### 더 알아보기 좋은 글
-GC https://databricks.com/blog/2015/05/28/tuning-java-garbage-collection-for-spark-applications.html
+GC tuning: [https://databricks.com/blog/2015/05/28/tuning-java-garbage-collection-for-spark-applications.html](https://databricks.com/blog/2015/05/28/tuning-java-garbage-collection-for-spark-applications.html)
 
 
 ## Reference
 [https://databricks.com/session_eu19/apache-spark-core-practical-optimization](https://databricks.com/session_eu19/apache-spark-core-practical-optimization)
-[https://developer.ibm.com/technologies/artificial-intelligence/blogs/spark-performance-optimization-guidelines/](https://developer.ibm.com/technologies/artificial-intelligence/blogs/spark-performance-optimization-guidelines/)
-
+[https://developer.ibm.com/technologies/artificial-intelligence/blogs/spark-performance-optimization-guidelines/](https://developer.ibm.com/technologies/artificial-intelligence/
+blogs/spark-performance-optimization-guidelines/)
+[https://spark.apache.org/docs/latest/sql-performance-tuning.html](https://spark.apache.org/docs/latest/sql-performance-tuning.html)
+[https://spark.apache.org/docs/latest/tuning.html](https://spark.apache.org/docs/latest/tuning.html)
