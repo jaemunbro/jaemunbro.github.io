@@ -1,9 +1,9 @@
 ---
-title: Apache Spark - Core Optimization (스파크 최적화)
+title: Spark - Core Optimization (스파크 - 최적화)
 author: Jaemun Jung
 date: 2021-05-01 01:43:00 +0900
-categories: [Apache Spark]
-tags: [Spark, Optimization]
+categories: [Spark]
+tags: [spark, optimization]
 ---
 
 스파크의 기본적인 최적화 세팅 방법들에 대해 정리해보자.
@@ -12,7 +12,7 @@ tags: [Spark, Optimization]
 
 # General Optimization
 --------------
-아래 Advanced Optimization에서 조금 깊이 파보기 전에, 기본적인 최적화 방법들에 대해서 간단히 살펴보자.
+Practical Optimization에 관해서 깊이 파보기 전에, 기본적인 최적화 방법들에 대해서 먼저 간단히 살펴보자.
 
 ### File Format 최적화 
 - Parquet, ORC와 같은 columnar file 활용
@@ -59,7 +59,7 @@ shuffle은 네트워크와 disk I/O를 포함하는 노드간 데이터 이동�
 ### UDF
 - UDF 사용은 최대한 지양한다. (아래 Advanced Optimization 참조)
 
-# Advanced Optimization
+# Practical Optimization
 ## 하드웨어 스펙에 대한 이해
 -----------
 - **Core Count & Speed**

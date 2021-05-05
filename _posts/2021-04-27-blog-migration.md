@@ -3,7 +3,7 @@ title: 블로그 이사
 author: Jaemun Jung
 date: 2021-04-27 11:25:00 +0900
 categories: [ETC, Thoughts]
-tags: []
+tags: [thoughts]
 math: true
 mermaid: true
 ---

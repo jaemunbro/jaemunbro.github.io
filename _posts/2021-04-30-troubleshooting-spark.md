@@ -1,16 +1,15 @@
 ---
-title: Apache Spark - Troubleshooting Cheatsheet (스파크 트러블슈팅 가이드)
+title: Spark - Troubleshooting Cheatsheet (스파크 - 트러블슈팅 가이드)
 author: Jaemun Jung
 date: 2021-04-30 01:43:00 +0900
-categories: [Apache Spark]
-tags: [Spark, Troubleshooting]
+categories: [Spark]
+tags: [spark, troubleshooting]
 ---
 
 스파크의 문제 사례들과 그 해결 방법들에 대해 알아보자.  
 문제 케이스들은 일부 직접 겪은 것들과 본문 하단 링크의 케이스들을 취합하였다.
 
 # Troubleshooting Tips
------------
 ### 트러블슈팅을 위해 verbose mode를 활용하자
 -----------
 `spark-submit --driver-memory 10g --verbose --master yarn --executor memory...`  
