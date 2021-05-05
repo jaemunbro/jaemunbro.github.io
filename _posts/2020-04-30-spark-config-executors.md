@@ -50,7 +50,8 @@ core와 memory size 세팅의 starting point로는 아래 설정을 잡으면 �
 ```
 
 # 예를 들어보면
-AWS EMR에 m5.2xlarge를 master로, m5.24xlarge를 core로 10대 띄운 상황을 예시로 보자.
+AWS EMR에 m5.2xlarge를 master로, m5.24xlarge를 core로 10대 띄운 상황을 예시로 보자.  
+
 ![image](https://user-images.githubusercontent.com/29077671/117181500-44170080-ae10-11eb-954b-9350ea1cdb24.png)
 
 - EMR 서버 현황
