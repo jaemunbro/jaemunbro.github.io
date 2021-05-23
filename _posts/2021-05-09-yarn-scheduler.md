@@ -43,7 +43,8 @@ from Hadoop the definitive guide*
 페어 스케쥴러는 실행 중인 모든 애플리케이션에 동일하게 자원을 할당한다. Cloudera에서 사용을 권장하는 Scheduler 타입이다. 기본 Hadoop 스케쥴러는 Capacity Scheduler지만 CDH 배포판은 기본 스케쥴러가 Fair Scheduler이다. 
 
 스케쥴러 설정은 `yarn-site.xml`에서 하고, 각 스케쥴러의 큐 설정은 `capacity-scheduler.xml`, `fair-scheduler.xml`등의 파일에서 지정한다.
-- yarn-site.xml의 예시
+- yarn-site.xml의 예시  
+
 ```xml
 <property>  
  <name>yarn.resourcemanager.scheduler.class</name>  
@@ -52,7 +53,8 @@ from Hadoop the definitive guide*
 ```
 페어 스케쥴러는 클래스 경로에 있는 `fair-scheduler.xml`이라는 할당 파일에 속성을 설정한다. 
 
-- fair-scheduler.xml의 예시
+- fair-scheduler.xml의 예시  
+
 ```xml
 <?xml version="1.0"?>
 <allocations>
@@ -90,7 +92,7 @@ from Hadoop the definitive guide*
 YARN의 모든 스케쥴러는 지역성을 가장 우선시한다. 어떤 애플리케이션이 특정 노드를 요청하면 딱 그 시점에는 그 노드가 바쁠 가능성이 높다. 이 경우 지역성을 조금 포기해서 동일 노드가 아니라 동을 랙에 컨테이너를 할당할 수도 있다. 하지만 대부분의 경우 '조금만' 기다리면 요청한 노드에서 컨테이너를 할당받을 수 있는 기회가 크게 증가한다. 이러한 기능을 지연 스케쥴링(delay scheduling)이라고 한다. 
 
 
-#### (참고자료) AWS EMR에서 Scheduler 설정 변경
+#### AWS EMR에서 Scheduler 설정 변경
 --------------
 [https://aws.amazon.com/premiumsupport/knowledge-center/restart-service-emr/](https://aws.amazon.com/premiumsupport/knowledge-center/restart-service-emr/)
 [https://stackoverflow.com/questions/34953319/how-to-restart-yarn-on-aws-emr/](https://stackoverflow.com/questions/34953319/how-to-restart-yarn-on-aws-emr/)
