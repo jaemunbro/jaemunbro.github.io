@@ -17,7 +17,7 @@ node_modules
 package-lock.json
 
 # workingon
-#/posts_writing
+/posts_workingon
 #samples
 /_posts/2019-08*
 
