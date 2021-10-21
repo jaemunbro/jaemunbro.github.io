@@ -187,7 +187,7 @@ Google은 Level 1에서 CI/CD면에서 집중적으로 강화된 시스템을 ML
 
 위 Google의 자료에서 보았듯, MLOps는 어떤 면에서 DevOps보다 더 복잡하고 많은 테스트를 필요로 하는 면도 있다. 소프트웨어의 코드 테스트 뿐만 아니라 데이터와 모델의 성능까지 테스트하고 검증해야하기 때문이다. [DataOps](https://en.wikipedia.org/wiki/DataOps)라는 방법론이 이미 MLOps에 디폴트로 녹아들어가져 있어야 하는 것이다.  
 
-[!image](https://user-images.githubusercontent.com/29077671/138129859-9dc152be-8aed-46bb-a81d-8107c0a7dbb3.png "Traditional Software System과 ML System의 테스트 차이. 근데 쫌 ML쪽만 이런저런 테스트를 더 넣은 것 같긴 한데.. 아무튼 데이터부터 테스트해야할 것이 더 많다는 이야기..! (from [애저듣보잡 MLOps 101](https://youtu.be/q2N6NZKxipg))")*Traditional Software System과 ML System의 테스트 차이. 근데 쫌 ML쪽만 이런저런 테스트를 더 넣은 것 같긴 한데.. 아무튼 데이터부터 테스트해야할 것이 더 많다는 이야기..! (from [애저듣보잡 MLOps 101](https://youtu.be/q2N6NZKxipg))*
+![image](https://user-images.githubusercontent.com/29077671/138129859-9dc152be-8aed-46bb-a81d-8107c0a7dbb3.png "Traditional Software System과 ML System의 테스트 차이. 근데 쫌 ML쪽만 이런저런 테스트를 더 넣은 것 같긴 한데.. 아무튼 데이터부터 테스트해야할 것이 더 많다는 이야기..! (from [애저듣보잡 MLOps 101](https://youtu.be/q2N6NZKxipg))")*Traditional Software System과 ML System의 테스트 차이. 근데 쫌 ML쪽만 이런저런 테스트를 더 넣은 것 같긴 한데.. 아무튼 데이터부터 테스트해야할 것이 더 많다는 이야기..! (from [애저듣보잡 MLOps 101](https://youtu.be/q2N6NZKxipg))*
   
 <br><br>
 
