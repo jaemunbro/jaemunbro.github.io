@@ -1,5 +1,5 @@
 ---
-title: ML - What is MLOps? (MLOps란?)
+title: ML - What is MLOps? (MLOps란)
 author: Jaemun Jung
 date: 21-05-22 00:00:00 +0900
 categories: [ML]
@@ -14,12 +14,10 @@ tags: [ml, mlops]
 
 ---
 
-# MLOps란
+# MLOps의 정의
 먼저 한 문장으로 간단히 정의해보면,
 개발과 운영을 따로 나누지 않고 개발의 생산성과 운영의 안정성을 최적화하기 위한 문화이자 방법론이 DevOps이며, 이를 ML 시스템에 적용한 것이 MLOps이다.
-<center><img src="https://user-images.githubusercontent.com/29077671/138129733-32356180-a815-4801-b3b8-eadd21700ecd.png
-" ></center>
-DevOps의 Dev-Ops-QA간 벤다이어그램. 위의 Dev를 ML로 살짝 바꾸면 MLOps(from https://en.wiktionary.org/wiki/DevOps)  
+![image](https://user-images.githubusercontent.com/29077671/138129733-32356180-a815-4801-b3b8-eadd21700ecd.png "DevOps의 Dev-Ops-QA간 벤다이어그램. 위의 Dev를 ML로 살짝 바꾸면 MLOps(from https://en.wiktionary.org/wiki/DevOps)")*DevOps의 Dev-Ops-QA간 벤다이어그램. 위의 Dev를 ML로 살짝 바꾸면 MLOps?(from https://en.wiktionary.org/wiki/DevOps)*  
 <br>
 <br>
 MLOps는 ML의 전체 Lifecycle를 관리해야 한다.
@@ -27,8 +25,8 @@ MLOps는 ML의 전체 Lifecycle를 관리해야 한다.
 MLOps란 단순히 ML 모델뿐만 아니라, 데이터를 수집하고 분석하는 단계(Data Collection, Ingestion, Analysis, Labeling, Validation, Preparation), 그리고 ML 모델을 학습하고 배포하는 단계(Model Training, Validation, Deployment)까지 전 과정을 AI Lifecycle로 보고, MLOps의 대상으로 보고 있다. 
 ML에 기여하는 Engineer들(Data Scientist, Data Engineer, SW Engineer)이 이 Lifecycle을 관리하고 모니터링해야 한다.
 
-<center><img src="https://user-images.githubusercontent.com/29077671/138129756-d2121552-6c80-4662-8a2a-bcdaaf86f043.png"></center>
-MLOPS by NVIDIA(from https://blogs.nvidia.com/blog/2020/09/03/what-is-mlops/)  
+![image](https://user-images.githubusercontent.com/29077671/138129756-d2121552-6c80-4662-8a2a-bcdaaf86f043.png "MLOPS by NVIDIA(from https://blogs.nvidia.com/blog/2020/09/03/what-is-mlops/)")*MLOPS by NVIDIA(from https://blogs.nvidia.com/blog/2020/09/03/what-is-mlops/)*
+
 <br>
 <br>
 머신러닝을 엔터프라이즈 레벨에서 서비스에 구현하고자 한다면, MLOps는 선택이 아니라 반드시 구현해야하는 방향이다. 최고 모범사례까지는 안되더라도 최소한 어느 정도 수준까지는. 따라서 MLOps라는 키워드 자체는 시간이 지나면 바뀔 수도 있겠지만, 최소한 지향점은 바뀌지 않을 필수적인 것으로 생각된다.
@@ -42,8 +40,8 @@ MLOPS by NVIDIA(from https://blogs.nvidia.com/blog/2020/09/03/what-is-mlops/)
 
 # ML 시스템의 요소
 머신러닝 시스템을 프로덕션 환경에 적용하고 운영하기 위해서는 단순히 좋은 머신러닝 모델만으로 가능한 것이 아니다. 머신러닝 모델이 ML 시스템의 핵심이기는 하지만, 전체 프로덕션 ML 시스템의 운영을 고려하면 모델 학습 자체는 오히려 작은 부분을 차지한다고 이야기하기도 한다. 모델을 운영하기 위해 기반 데이터와 인프라를 포함한 모든 시스템이 유기적으로 돌아가야 한다.
-<img src="https://user-images.githubusercontent.com/29077671/138129766-d822c7c7-dcc9-4021-9e80-b2d898e5e7b3.png">
-ML 시스템의 요소(Hidden Technical Debt in Machine Learning Systems)  
+![image](https://user-images.githubusercontent.com/29077671/138129766-d822c7c7-dcc9-4021-9e80-b2d898e5e7b3.png "ML 시스템의 요소(Hidden Technical Debt in Machine Learning Systems)")*ML 시스템의 요소(Hidden Technical Debt in Machine Learning Systems)*
+
 
 위와 같은 ML 시스템의 운영을 위해 DevOps의 원칙을 적용한 것이 MLOps이다.
 # DevOps vs MLOps
@@ -86,8 +84,9 @@ output은 모델의 성과 평가 metric.
 8. Model Monitoring(모델 모니터링)
 모델의 예측 성능을 모니터링  
 <br><br>
-<img src="https://user-images.githubusercontent.com/29077671/138129776-d5286102-6f05-4b55-81c3-6aa011f1d8db.png">
-MS Azure의 자료도 참고해보자. Google의 자료와 정의하는 이름과 부수적인 스텝의 차이가 있지만 ML Lifecycle은 결국 모두 같은 필수적인 스텝들을 가진다(from 애저듣보잡 MLOps 101)  
+
+![image](https://user-images.githubusercontent.com/29077671/138129776-d5286102-6f05-4b55-81c3-6aa011f1d8db.png "MS Azure의 자료도 참고해보자. Google의 자료와 정의하는 이름과 부수적인 스텝의 차이가 있지만 ML Lifecycle은 결국 모두 같은 필수적인 스텝들을 가진다(from 애저듣보잡 MLOps 101)")*MS Azure의 자료도 참고해보자. Google의 자료와 정의하는 이름과 부수적인 스텝의 차이가 있지만 ML Lifecycle은 결국 모두 같은 필수적인 스텝들을 가진다(from 애저듣보잡 MLOps 101)*
+  
 
 <br>
 위와 같은 ML 프로세스의 자동화 수준에 따라 해당 ML 시스템의 성숙도를 평가해볼 수 있다.
@@ -95,8 +94,9 @@ Google은 가장 보편적인 수동 적용 단계부터 ML과 CI/CD pipeline을
 
 <br><br>
 # MLOps level 0: Manual Process
-<img src="https://user-images.githubusercontent.com/29077671/138129799-da62ce84-98f3-4c0a-8b0d-f166865a91a2.png">
-MLOps Level 0 : Manual process   
+
+![image](https://user-images.githubusercontent.com/29077671/138129799-da62ce84-98f3-4c0a-8b0d-f166865a91a2.png "MLOps Level 0 : Manual process")*MLOps Level 0 : Manual process*
+   
 <br>
 <br>
 - 데이터 추출과 분석, 모델 학습, 검증을 포함한 모든 단계가 수동
@@ -118,8 +118,9 @@ MLOps Level 0 : Manual process
 <br><br>
 # MLOps level 1: ML pipeline automation
 Level 1의 목표는 ML 파이프라인을 자동화하여 모델을 지속적으로 학습시키는 것이다.
-<img src="https://user-images.githubusercontent.com/29077671/138129806-92f49ae2-34cb-4173-8c08-750982a9ef24.png">
-CT를 위한 ML 파이프라인 자동화  
+
+![image](https://user-images.githubusercontent.com/29077671/138129806-92f49ae2-34cb-4173-8c08-750982a9ef24.png "CT를 위한 ML 파이프라인 자동화")*CT를 위한 ML 파이프라인 자동화*
+
 
 ### Level 1 의 특징들
 - Rapid experiment : 실험을 빠르게 반복하고, 전체 파이프라인을 프로덕션으로 빠르게 배포
@@ -161,11 +162,10 @@ ML 파이프라인의 실행 정보, 데이터 및 아티팩트의 계보 등을
 <br><br>
 
 # MLOps level 2: CI/CD pipeline automation
-<img src="https://user-images.githubusercontent.com/29077671/138129823-b9b4f489-df99-44ed-9c24-8aa35d953368.png">
-CI/CD and automated ML pipeline  
+![image](https://user-images.githubusercontent.com/29077671/138129823-b9b4f489-df99-44ed-9c24-8aa35d953368.png "CI/CD and automated ML pipeline")*CI/CD and automated ML pipeline*
+
 Google은 Level 1에서 CI/CD면에서 집중적으로 강화된 시스템을 MLOps Level 2로 구분하고 있다. CI/CD 자동화 파이프라인의 단계는 다음과 같이 보여줄 수 있다.
-<img src="https://user-images.githubusercontent.com/29077671/138129840-9ee1cff5-b82e-4c3b-9694-c4e82710f944.png">
-Stages of the CI/CD automated ML pipeline  
+![image](https://user-images.githubusercontent.com/29077671/138129840-9ee1cff5-b82e-4c3b-9694-c4e82710f944.png "Stages of the CI/CD automated ML pipeline")*Stages of the CI/CD automated ML pipeline*
 <br>
 <br>
 ### Continuous Integration
@@ -186,8 +186,8 @@ Stages of the CI/CD automated ML pipeline
 
 위 Google의 자료에서 보았듯, MLOps는 어떤 면에서 DevOps보다 더 복잡하고 많은 테스트를 필요로 하는 면도 있다. 소프트웨어의 코드 테스트 뿐만 아니라 데이터와 모델의 성능까지 테스트하고 검증해야하기 때문이다. [DataOps](https://en.wikipedia.org/wiki/DataOps)라는 방법론이 이미 MLOps에 디폴트로 녹아들어가져 있어야 하는 것이다.  
 
-<img src="https://user-images.githubusercontent.com/29077671/138129859-9dc152be-8aed-46bb-a81d-8107c0a7dbb3.png">
-Traditional Software System과 ML System의 테스트 차이. 근데 쫌 ML쪽만 이런저런 테스트를 끼워넣은 것 같긴 한데.. 아무튼 데이터부터 테스트해야할 것이 더 많다는 이야기..! (from [애저듣보잡 MLOps 101](https://youtu.be/q2N6NZKxipg))  
+[!image](https://user-images.githubusercontent.com/29077671/138129859-9dc152be-8aed-46bb-a81d-8107c0a7dbb3.png "Traditional Software System과 ML System의 테스트 차이. 근데 쫌 ML쪽만 이런저런 테스트를 더 넣은 것 같긴 한데.. 아무튼 데이터부터 테스트해야할 것이 더 많다는 이야기..! (from [애저듣보잡 MLOps 101](https://youtu.be/q2N6NZKxipg))")*Traditional Software System과 ML System의 테스트 차이. 근데 쫌 ML쪽만 이런저런 테스트를 더 넣은 것 같긴 한데.. 아무튼 데이터부터 테스트해야할 것이 더 많다는 이야기..! (from [애저듣보잡 MLOps 101](https://youtu.be/q2N6NZKxipg))*
+  
 <br><br>
 
 ### 맺으며
