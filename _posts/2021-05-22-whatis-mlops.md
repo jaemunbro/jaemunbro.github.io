@@ -1,10 +1,11 @@
 ---
-title: [ML] MLOps가 무엇인고?
+title: ML - What is MLOps? (MLOps란?)
 author: Jaemun Jung
 date: 21-05-22 00:00:00 +0900
 categories: [ML]
 tags: [ml, mlops]
 ---
+
 # MLOps가 무엇인고?  
 > _Medium Blog [MLOps가 무엇인고?](https://medium.com/p/84f68e4690be/edit)에 작성했던 글을 옮겨옴._
 
@@ -13,8 +14,8 @@ tags: [ml, mlops]
 
 ---
 
-### MLOps란
-먼저 한 문장으로 간단히 정리해보면,
+# MLOps란
+먼저 한 문장으로 간단히 정의해보면,
 개발과 운영을 따로 나누지 않고 개발의 생산성과 운영의 안정성을 최적화하기 위한 문화이자 방법론이 DevOps이며, 이를 ML 시스템에 적용한 것이 MLOps이다.
 <center><img src="https://user-images.githubusercontent.com/29077671/138129733-32356180-a815-4801-b3b8-eadd21700ecd.png
 " ></center>
