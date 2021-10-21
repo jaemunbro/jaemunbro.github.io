@@ -16,7 +16,8 @@ tags: [ml, mlops]
 
 # MLOps의 정의
 먼저 한 문장으로 간단히 정의해보면,
-개발과 운영을 따로 나누지 않고 개발의 생산성과 운영의 안정성을 최적화하기 위한 문화이자 방법론이 DevOps이며, 이를 ML 시스템에 적용한 것이 MLOps이다.
+개발과 운영을 따로 나누지 않고 개발의 생산성과 운영의 안정성을 최적화하기 위한 문화이자 방법론이 DevOps이며, 이를 ML 시스템에 적용한 것이 MLOps이다.  
+
 ![image](https://user-images.githubusercontent.com/29077671/138129733-32356180-a815-4801-b3b8-eadd21700ecd.png "DevOps의 Dev-Ops-QA간 벤다이어그램. 위의 Dev를 ML로 살짝 바꾸면 MLOps(from https://en.wiktionary.org/wiki/DevOps)")*DevOps의 Dev-Ops-QA간 벤다이어그램. 위의 Dev를 ML로 살짝 바꾸면 MLOps?(from https://en.wiktionary.org/wiki/DevOps)*  
 <br>
 <br>
